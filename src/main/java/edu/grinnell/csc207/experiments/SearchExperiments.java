@@ -61,6 +61,18 @@ public class SearchExperiments {
     // } catch (Exception e) {
     //   pen.println("There are no strings that contains u.");
     // } // try/catchS
+
+    int[] lArr = new int[1023];
+    for (int j = 0; j < lArr.length; j++) {
+      lArr[j] = j + 1;
+    } // for [j]
+    double total = 0;
+    for (int k = 0; k < lArr.length; k++) {
+      SearchUtils.binarySearch(lArr, k + 1);
+      pen.println(SearchUtils.getLastTime());
+      total += SearchUtils.getLastTime();
+    } // for [k]
+    pen.println("Average time for an array of length " + lArr.length + ": " + (total / lArr.length));
     pen.close();
   } // main(String[])
 } // class SearchUtils

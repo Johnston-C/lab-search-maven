@@ -1,5 +1,6 @@
 package edu.grinnell.csc207.util;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 /**
@@ -10,6 +11,13 @@ import java.util.function.Predicate;
  * @author Samuel A. Rebelsky (starter code)
  */
 public class SearchUtils {
+
+  // +---------+
+  // | Globals |
+  // +---------+
+
+  private static int count;
+
   // +---------+-----------------------------------------------------
   // | Helpers |
   // +---------+
@@ -32,15 +40,18 @@ public class SearchUtils {
    *   values[index] == val
    */
   static int iterativeBinarySearch(int[] vals, int val) throws Exception {
+    reset();
     int min = 0;
     int max = vals.length - 1;
+    count++;
     while(min <= max) {
-      if (val == vals[(min + max) / 2]) {
-        return (min + max) / 2;
-      } else if (vals[(min + max) / 2] > val) {
-        max = (min + max) / 2 - 1;
+      count++;
+      if (val == vals[min / 2 + max / 2 + (min % 2) * (max % 2)]) {
+        return min / 2 + max / 2 + (min % 2) * (max % 2);
+      } else if (vals[min / 2 + max / 2 + (min % 2) * (max % 2)] > val) {
+        max = min / 2 + max / 2 + (min % 2) * (max % 2) - 1;
       } else {
-        min = (min + max) / 2 + 1;
+        min = min / 2 + max / 2 + (min % 2) * (max % 2) + 1;
       } // if / else if / else
     } // while
     throw new Exception("Value does not exist in the array.");
@@ -64,6 +75,8 @@ public class SearchUtils {
    *   values[index] == val
    */
   static int recursiveBinarySearch(int[] vals, int val) throws Exception {
+    reset();
+    count++;
     return rbsHelper(vals, 0, vals.length - 1, val);
   } // recursiveBinarySearch
 
@@ -90,17 +103,45 @@ public class SearchUtils {
    *   values[index] == val
    */
   static int rbsHelper(int[] vals, int lb, int ub, int val) throws Exception {
-    while(lb <= ub) {
-      if (val == vals[(lb + ub) / 2]) {
-        return (lb + ub) / 2;
-      } else if (vals[(lb + ub) / 2] > val) {
-        return rbsHelper(vals, lb, (lb + ub) / 2 - 1, val);
+    if(lb <= ub) {
+      count++;
+      if (val == vals[lb / 2 + ub / 2 + (lb % 2) * (ub % 2)]) {
+        return lb / 2 + ub / 2 + (lb % 2) * (ub % 2);
+      } else if (vals[lb / 2 + ub / 2 + (lb % 2) * (ub % 2)] > val) {
+        return rbsHelper(vals, lb, lb / 2 + ub / 2 + (lb % 2) * (ub % 2) - 1, val);
       } else {
-        return rbsHelper(vals, (lb + ub) / 2 + 1, ub, val);
+        return rbsHelper(vals, lb / 2 + ub / 2 + (lb % 2) * (ub % 2) + 1, ub, val);
       } // if / else if / else
-    } // while
+    } // if
     throw new Exception("Value does not exist in the array.");
   } // rbsHelper
+
+  static public void reset() {
+    count = 0;
+  }
+
+  static public int getLastTime() {
+    return count;
+  }
+
+  public static <T> int binarySearch(T[] values, T value, Comparator<T> compare) throws Exception {
+    reset();
+    int min = 0;
+    int max = values.length - 1;
+    count++;
+    while(min <= max) {
+      count++;
+      if (compare.compare(values[min / 2 + max / 2 + (min % 2) * (max % 2)] ,value) == 0) {
+        return min / 2 + max / 2 + (min % 2) * (max % 2);
+      } else if (compare.compare(values[min / 2 + max / 2 + (min % 2) * (max % 2)] ,value) > 0) {
+        max = min / 2 + max / 2 + (min % 2) * (max % 2) - 1;
+      } else {
+        min = min / 2 + max / 2 + (min % 2) * (max % 2) + 1;
+      } // if / else if / else
+    } // while
+    throw new Exception("Value does not exist in the array.");  
+} // binarySearch
+
 
   // +----------------+----------------------------------------------
   // | Public methods |
