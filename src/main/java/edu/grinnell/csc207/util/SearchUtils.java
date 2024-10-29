@@ -64,7 +64,7 @@ public class SearchUtils {
    *   values[index] == val
    */
   static int recursiveBinarySearch(int[] vals, int val) throws Exception {
-    return 0;   // STUB
+    return rbsHelper(vals, 0, vals.length - 1, val);
   } // recursiveBinarySearch
 
   /**
@@ -90,7 +90,16 @@ public class SearchUtils {
    *   values[index] == val
    */
   static int rbsHelper(int[] vals, int lb, int ub, int val) throws Exception {
-    return 0;   // STUB
+    while(lb <= ub) {
+      if (val == vals[(lb + ub) / 2]) {
+        return (lb + ub) / 2;
+      } else if (vals[(lb + ub) / 2] > val) {
+        return rbsHelper(vals, lb, (lb + ub) / 2 - 1, val);
+      } else {
+        return rbsHelper(vals, (lb + ub) / 2 + 1, ub, val);
+      } // if / else if / else
+    } // while
+    throw new Exception("Value does not exist in the array.");
   } // rbsHelper
 
   // +----------------+----------------------------------------------
