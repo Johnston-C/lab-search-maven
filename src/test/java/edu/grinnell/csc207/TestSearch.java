@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+
 import org.junit.jupiter.api.Test;
 
 import edu.grinnell.csc207.util.SearchUtils;
@@ -161,5 +162,17 @@ public class TestSearch {
       assertBinarySearchFinds(j, arr, j + 1);
     } // for
   } // testBinarySearchCustom3()
+
+  @Test
+  void testBinarySearchCustom4() throws Exception {
+    int[] arr = new int[32];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = 2 * i;
+    } // for
+    for (int j = 0; j < arr.length; j++) {
+      assertBinarySearchFinds(j, arr, 2 * j);
+      assertBinarySearchFails(arr, 2 * j+1);
+    } // for
+  } // testBinarySearchCustom4()
 
 } // class TestSearch
