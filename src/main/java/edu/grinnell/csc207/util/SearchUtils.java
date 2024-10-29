@@ -32,7 +32,18 @@ public class SearchUtils {
    *   values[index] == val
    */
   static int iterativeBinarySearch(int[] vals, int val) throws Exception {
-    return 0;   // STUB
+    int min = 0;
+    int max = vals.length - 1;
+    while(min <= max) {
+      if (val == vals[(min + max) / 2]) {
+        return (min + max) / 2;
+      } else if (vals[(min + max) / 2] > val) {
+        max = (min + max) / 2 - 1;
+      } else {
+        min = (min + max) / 2 + 1;
+      } // if / else if / else
+    } // while
+    throw new Exception("Value does not exist in the array.");
   } // iterativeBinarySearch
 
   /**
@@ -130,8 +141,7 @@ public class SearchUtils {
    *   values[index] == val
    */
   public static int binarySearch(int[] vals, int val) throws Exception {
-    return 0;
-    // return interativeBinarySearch(vals, val);
+    return iterativeBinarySearch(vals, val);
     // return recursiveBinarySearch(vals, val);
   } // binarySearch
 
