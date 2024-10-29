@@ -126,4 +126,40 @@ public class TestSearch {
     assertBinarySearchFinds(new int[] { 1, 1, 1, 2, 2, 3 }, 3);
   } // testBinarySearchDups()
 
+  /**
+   * Searching increasingly larger arrays
+   */
+  @Test
+  void testBinarySearchCustom1() throws Exception {
+    int[] arr = new int[15];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = i + 1;
+    } // for
+    for (int j = 0; j < arr.length; j++) {
+      assertBinarySearchFinds(j, arr, j + 1);
+    } // for
+  } // testBinarySearchCustom1()
+
+  @Test
+  void testBinarySearchCustom2() throws Exception {
+    int[] arr = new int[31];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = i + 1;
+    } // for
+    for (int j = 0; j < arr.length; j++) {
+      assertBinarySearchFinds(j, arr, j + 1);
+    } // for
+  } // testBinarySearchCustom2()
+
+  @Test
+  void testBinarySearchCustom3() throws Exception {
+    int[] arr = new int[63];
+    for (int i = 0; i < arr.length; i++) {
+      arr[i] = i + 1;
+    } // for
+    for (int j = 0; j < arr.length; j++) {
+      assertBinarySearchFinds(j, arr, j + 1);
+    } // for
+  } // testBinarySearchCustom3()
+
 } // class TestSearch
